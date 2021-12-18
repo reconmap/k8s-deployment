@@ -7,21 +7,28 @@
 
 ## Local dev requirements
 
+- Make
 - Minikube
 - Minikube ingress controller addon (https://kubernetes.github.io/ingress-nginx/deploy/)
 
-## Setup instructions
+## Provisioning
 
 ```shell
 kubectl create secret generic redis-password --from-literal=value=REconDIS
+make
+```
+
+## Tear down
+
+```shell
+make clean
 ```
 
 ## Troubleshooting
 
 ```shell
-minikube service web-client-service --url
-kubectl proxy
 minikube start
+kubectl proxy
 minikube dashboard
 ```
 
