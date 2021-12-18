@@ -1,10 +1,15 @@
-
+SHELL:=bash
 deploy:
-	kubectl apply -f manual/deployment.yaml
-	kubectl apply -f manual/service.yaml
+	@for file in definitions/*.yml; do \
+		echo Applying $$file...; \
+		kubectl apply -f $$file; \
+	done
 
 clean:
-	kubectl delete service,deployment reconmap-web-frontend
+	@for file in definitions/*.yml; do \
+		echo Deleting $$file...; \
+		kubectl delete -f $$file; \
+	done
 
 convert:
 	kompose convert -f ../api/docker-compose.yml -o generated

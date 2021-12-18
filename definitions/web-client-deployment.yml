@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-client
+  labels:
+    app: web-client
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-client
+  template:
+    metadata:
+      labels:
+        app: web-client
+    spec:
+      containers:
+        - image: quay.io/reconmap/web-client:master
+          imagePullPolicy: IfNotPresent
+          name: rmap-web-client
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/environment.js
+              subPath: environment.js
+      volumes:
+        - name: config-volume
+          configMap:
+            name: web-client-configmap

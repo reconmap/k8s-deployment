@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rest-api
+  labels:
+    app: rest-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rest-api
+  template:
+    metadata:
+      labels:
+        app: rest-api
+    spec:
+      containers:
+        - image: quay.io/reconmap/rest-api:latest
+          imagePullPolicy: IfNotPresent
+          name: rmap-rest-api
+          volumeMounts:
+            - name: config-volume
+              mountPath: /var/www/webapp/config.json
+              subPath: config.json
+          env:
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_USER
+              value: "default"
+            - name: REDIS_PASSWORD
+              value: "REconDIS"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: rest-api-configmap

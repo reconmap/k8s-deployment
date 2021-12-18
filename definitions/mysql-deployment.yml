@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: quay.io/reconmap/rest-api-db:master
+          imagePullPolicy: IfNotPresent
+          name: rmap-mysql
+          env:
+            - name: MSQL_ROOT_PASSWORD
+              value: reconmuppet
+            - name: MYSQL_DATABASE
+              value: reconmap
+            - name: MYSQL_USER
+              value: reconmapper
+            - name: MYSQL_PASSWORD
+              value: reconmapped
+
+
