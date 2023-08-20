@@ -12,5 +12,5 @@ clean:
 	done
 
 convert:
-	kompose convert -f ../api/docker-compose.yml -o generated
+	kompose convert -f ../rest-api/docker-compose.yml --with-kompose-annotation=false -o definitions
 

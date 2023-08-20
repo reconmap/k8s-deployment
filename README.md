@@ -3,12 +3,12 @@
 
 ## Requirements
 
-- Kubernetes 1.22 or greater
+- Kubernetes 1.24 or greater
 
 ## Local dev requirements
 
 - Make
-- Minikube
+- Minikube (https://minikube.sigs.k8s.io/docs/start/)
 - Minikube ingress controller addon (https://kubernetes.github.io/ingress-nginx/deploy/)
 
 ## Provisioning
