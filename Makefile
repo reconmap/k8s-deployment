@@ -1,16 +1,16 @@
 SHELL:=bash
 deploy:
-	@for file in definitions/*.yml; do \
+	@for file in resources/*.yml; do \
 		echo Applying $$file...; \
 		kubectl apply -f $$file; \
 	done
 
 clean:
-	@for file in definitions/*.yml; do \
+	@for file in resources/*.yml; do \
 		echo Deleting $$file...; \
 		kubectl delete -f $$file; \
 	done
 
 convert:
-	kompose convert -f ../rest-api/docker-compose.yml --with-kompose-annotation=false -o definitions
+	kompose convert -f ../reconmap/docker-compose.yml --namespace=nonprod --with-kompose-annotation=false -o resources
 

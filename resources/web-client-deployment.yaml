@@ -1,28 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-client
+  creationTimestamp: null
   labels:
-    app: web-client
+    io.kompose.service: web-client
+  name: web-client
+  namespace: nonprod
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: web-client
+      io.kompose.service: web-client
+  strategy:
+    type: Recreate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: web-client
+        io.kompose.network/reconmap-default: "true"
+        io.kompose.service: web-client
     spec:
       containers:
         - image: quay.io/reconmap/web-client:master
-          imagePullPolicy: IfNotPresent
           name: rmap-web-client
+          ports:
+            - containerPort: 5500
+              hostPort: 5500
+              protocol: TCP
+          resources: {}
           volumeMounts:
             - name: config-volume
               mountPath: /usr/share/nginx/html/environment.js
               subPath: environment.js
+      restartPolicy: Always
       volumes:
         - name: config-volume
           configMap:
             name: web-client-configmap
+status: {}

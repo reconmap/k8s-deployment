@@ -28,8 +28,14 @@ make clean
 
 ```shell
 minikube start
-kubectl proxy
+minikube tunnel # Make an external IP available to load balancer services
 minikube dashboard
 ```
 
+Use `kubectl proxy` to create a proxy to access K8s API
+
+DNS 
+
+10.111.234.195 keycloak.nonprod.svc.cluster.local
+10.108.112.100 web-client.nonprod.svc.cluster.local
 
